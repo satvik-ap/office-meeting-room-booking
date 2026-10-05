@@ -1,0 +1,261 @@
+{
+  "info": {
+    "name": "Meeting Room Booking System",
+    "_postman_id": "meeting-room-booking-system",
+    "description": "API collection for the Office Meeting Room Booking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "roomId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Register Employee",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test Employee\",\n  \"email\": \"test@meetingroom.com\",\n  \"password\": \"Employee123\",\n  \"role\": \"employee\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/register",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "register"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@meetingroom.com\",\n  \"password\": \"Admin12345\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Rooms",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/rooms",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "rooms"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Available Rooms",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/rooms/available?date=2026-10-06&time=10:30",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "rooms",
+            "available"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "2026-10-06"
+            },
+            {
+              "key": "time",
+              "value": "10:30"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Room - Admin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test Meeting Room\",\n  \"capacity\": 10\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rooms",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "rooms"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Room - Admin",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Meeting Room\",\n  \"capacity\": 15\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rooms/{{roomId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "rooms",
+            "{{roomId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Room - Admin",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/rooms/{{roomId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "rooms",
+            "{{roomId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Booking",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roomId\": \"{{roomId}}\",\n  \"startTime\": \"2026-10-06T10:30:00\",\n  \"endTime\": \"2026-10-06T11:30:00\",\n  \"attendees\": 5\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/bookings",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "bookings"
+          ]
+        }
+      }
+    },
+    {
+      "name": "My Bookings",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/bookings/my",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "bookings",
+            "my"
+          ]
+        }
+      }
+    }
+  ]
+}
