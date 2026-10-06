@@ -1,8 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function BookingForm() {
     const location = useLocation();
+    const navigate = useNavigate();
     const room = location.state?.room;
 
     const [startTime, setStartTime] = useState("");
@@ -20,18 +21,22 @@ function BookingForm() {
 
         const token = localStorage.getItem("token");
 
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                roomId: room._id,
-                startTime,
-                endTime,
-                attendees: Number(attendees)
-            })
-        });
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/bookings`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    roomId: room._id,
+                    startTime,
+                    endTime,
+                    attendees: Number(attendees)
+                })
+            }
+        );
 
         const data = await response.json();
 
@@ -40,6 +45,20 @@ function BookingForm() {
 
     return (
         <div style={{ padding: "40px" }}>
+
+            {/* My Bookings Button */}
+            <button
+                type="button"
+                onClick={() => navigate("/my-bookings")}
+                style={{
+                    marginBottom: "25px",
+                    padding: "10px 18px",
+                    cursor: "pointer"
+                }}
+            >
+                My Bookings
+            </button>
+
             <h1>Book Meeting Room</h1>
 
             {room && (
