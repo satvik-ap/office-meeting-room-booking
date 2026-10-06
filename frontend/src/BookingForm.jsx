@@ -20,8 +20,7 @@ function BookingForm() {
 
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/bookings", {
-            method: "POST",
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`

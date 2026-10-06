@@ -10,7 +10,7 @@ function MyBookings() {
 
             try {
                 const response = await fetch(
-                    "http://localhost:5000/bookings/my",
+                    `${import.meta.env.VITE_API_URL}/bookings/my`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -76,9 +76,7 @@ function MyBookings() {
                     </p>
 
                     {booking.capacityExceeded && (
-                        <p>
-                            Capacity exceeded
-                        </p>
+                        <p>Capacity exceeded</p>
                     )}
                 </div>
             ))}
